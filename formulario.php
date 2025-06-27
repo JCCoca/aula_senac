@@ -1,37 +1,3 @@
-<?php 
-
-// var_dump($_GET, $_POST);
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Pegamos os dados enviado pelo formulário
-    $nome = $_POST['nome'];
-    $email = $_POST['email'];
-    $telefone = $_POST['telefone'];
-    $sexo = $_POST['sexo'];
-    $data_nascimento = $_POST['data_nascimento'];
-
-    $conteudo = "
-    NOME: {$nome}
-    EMAIL: {$email}
-    TELEFONE: {$telefone}
-    SEXO: {$sexo}
-    DATA NASCIMENTO: {$data_nascimento}
-    ";
-
-    // Abre um arquivo, primeiro paramentro o caminho do arquvio e segundo é o modo
-    $arquivo = fopen('dados.txt', 'a+'); 
-
-    // realiza inserção no arquivo, primeiro paramentro é o arquivo e o segundo é o conteúdo
-    fwrite($arquivo, $conteudo); 
-
-    // fecha o arquivo, o único paramentro é o arquivo
-    fclose($arquivo); 
-
-    header('Location: form.php');
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -43,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body>
     <div class="container py-4">
         <h1 class="mb-4">Formulário</h1>
-        <form action="" method="POST">
+        <form action="salvar_formulario.php" method="POST">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" name="nome" id="nome" class="form-control" required>
