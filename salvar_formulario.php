@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     fclose($arquivo); 
 
     // Redireciona para o arquivo ou url infomado
-    header('Location: formulario.php');
+    header('Location: formulario.php?mensagem='.urlencode('Dados salvo com sucesso!'));
 }
 
 ?>

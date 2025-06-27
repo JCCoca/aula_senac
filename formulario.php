@@ -9,6 +9,13 @@
 <body>
     <div class="container py-4">
         <h1 class="mb-4">Formulário</h1>
+
+        <?php if (isset($_GET['mensagem'])): ?>
+            <div class="alert alert-success">
+                <?= $_GET['mensagem']; ?>
+            </div>
+        <?php endif ?>
+
         <form action="salvar_formulario.php" method="POST">
             <div class="mb-3">
                 <label for="nome" class="form-label">Nome</label>
