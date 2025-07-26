@@ -61,6 +61,32 @@ WHERE
 	sexo = 'Masculino'
 	AND data_nascimento >= '2000-01-01'
 	OR sexo = 'Feminino';
+	
+UPDATE 
+	pessoa 
+SET 
+	nome = 'Débora Barros', 
+	cpf = '222.222.222-22'
+WHERE 
+	id = 2;
+	
+DELETE FROM pessoa WHERE id = 1;
 */
 
-ALTER TABLE pessoa MODIFY email VARCHAR(255) NOT NULL UNIQUE;
+-- ALTER TABLE pessoa MODIFY email VARCHAR(255) NOT NULL UNIQUE;
+
+-- ALTER TABLE pessoa ADD telefone3 VARCHAR(20) NULL AFTER telefone;
+ 
+/*ALTER TABLE pessoa 
+	DROP telefone2, 
+	DROP telefone3;*/
+	
+-- ALTER TABLE pessoa RENAME pessoa2;
+
+-- ALTER TABLE pessoa CHANGE telefone3 telefone2 VARCHAR(20) NULL;
+
+-- DROP TABLE pessoa2;
+
+-- DROP DATABASE wordpress;
+
+TRUNCATE pessoa;
