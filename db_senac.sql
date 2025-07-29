@@ -89,4 +89,64 @@ DELETE FROM pessoa WHERE id = 1;
 
 -- DROP DATABASE wordpress;
 
-TRUNCATE pessoa;
+-- TRUNCATE pessoa;
+/*
+SELECT
+	COUNT(*) AS total
+FROM pessoa
+WHERE
+	sexo = 'Feminino';
+*/
+/*	
+SELECT
+	sexo,
+	YEAR(data_nascimento) AS ano,
+	COUNT(*) AS total
+FROM pessoa 
+WHERE 
+	YEAR(data_nascimento) > 1992
+GROUP BY
+	sexo,
+	ano
+HAVING
+	total > 1
+ORDER BY
+	ano DESC,
+	sexo ASC;
+*/
+/*	
+SELECT
+	nome,
+	UPPER(nome) AS nome_maiusculo,
+	LOWER(nome) AS nome_minusculo,
+	REPLACE(REPLACE(LOWER(nome), 'a', '4'), 'o', '0') AS nome_sem_espaco
+FROM pessoa;
+*/
+
+/*
+CREATE TABLE curso (
+	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(80) NOT NULL,
+	carga_horaria INT(9) NOT NULL,
+	modalidade ENUM('Presencial', 'Online', 'Mista') NOT NULL DEFAULT 'Presencial' 
+);
+*/
+
+/*
+CREATE TABLE matricula (
+	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	id_pessoa INT(10) NOT NULL,
+	FOREIGN KEY (id_pessoa) REFERENCES pessoa (id),
+	id_curso INT(10) NOT NULL,
+	FOREIGN KEY (id_curso) REFERENCES curso (id),
+	data_inicio DATE NOT NULL,
+	data_termino DATE NOT NULL
+);
+*/
+
+CREATE TABLE telefone (
+	id INT(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	numero VARCHAR(20) NOT NULL,
+	id_pessoa INT(10) NOT NULL,
+	FOREIGN KEY (id_pessoa) REFERENCES pessoa (id)
+);
