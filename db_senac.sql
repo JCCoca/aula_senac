@@ -164,8 +164,6 @@ INSERT INTO matricula (
 (99, 2, '2025-02-14', '2025-04-27'),
 (47, 3, '2025-03-11', '2025-04-23');
 
-*/
-
 SELECT
     pessoa.nome,
     pessoa.cpf, 
@@ -180,7 +178,21 @@ WHERE
 ORDER BY
     pessoa.id ASC;
 
+*/
 
+CREATE DATABASE senac;
+USE senac;
+
+CREATE TABLE pessoa (
+	id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	nome VARCHAR(120) NOT NULL,
+	cpf CHAR(14) NOT NULL,
+	email VARCHAR(255) NOT NULL UNIQUE,
+	senha VARCHAR(64) NOT NULL,
+	telefone VARCHAR(20) NOT NULL,
+	sexo ENUM('Masculino', 'Feminino') NOT NULL,
+	data_nascimento DATE NOT NULL
+);
 
 
 
