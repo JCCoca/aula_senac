@@ -10,9 +10,15 @@
     <div class="container py-4">
         <h1 class="mb-4">Formulário</h1>
 
-        <?php if (isset($_GET['mensagem'])): ?>
+        <?php if (isset($_GET['success'])): ?>
             <div class="alert alert-success">
-                <?= $_GET['mensagem']; ?>
+                <?= $_GET['success']; ?>
+            </div>
+        <?php endif ?>
+
+        <?php if (isset($_GET['error'])): ?>
+            <div class="alert alert-danger">
+                <?= $_GET['error']; ?>
             </div>
         <?php endif ?>
 
