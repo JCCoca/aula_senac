@@ -21,6 +21,21 @@
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" name="nome" id="nome" class="form-control" required>
             </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="cpf" class="form-label">CPF</label>
+                        <input type="text" name="cpf" id="cpf" class="form-control" required>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="telefone" class="form-label">Telefone</label>
+                        <input type="text" name="telefone" id="telefone" class="form-control" required>
+                    </div>
+                </div>
+            </div>
             
             <div class="row">
                 <div class="col-md-6">
@@ -30,9 +45,9 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="mb-3">
-                        <label for="telefone" class="form-label">Telefone</label>
-                        <input type="text" name="telefone" id="telefone" class="form-control" required>
+                   <div class="mb-3">
+                        <label for="senha" class="form-label">Senha</label>
+                        <input type="password" name="senha" id="senha" class="form-control" required>
                     </div>
                 </div>
                 <div class="col-md-6">
