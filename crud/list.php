@@ -4,7 +4,13 @@
     
     require_once 'database/connection.php';
 
-    $select = $connection->prepare('SELECT * FROM pessoa');
+    $lenghtPage = 10;
+    $page = (int) isset($_GET['page']) ? $_GET['page'] : 1;
+    $offset = $page * $lenghtPage;
+
+    $select = $connection->prepare('SELECT * FROM pessoa LIMIT :lenght OFFSET :offset');
+    $select->bindValue(':lenght', $lenghtPage, PDO::PARAM_INT);
+    $select->bindValue(':offset', $offset, PDO::PARAM_INT);
     $select->execute();
 
 ?>
@@ -15,6 +21,7 @@
     <table class="table table-sm table-striped table-hover align-middle">
         <thead class="table-light">
             <tr>
+                <th>ID</th>
                 <th>Nome</th>
                 <th>CPF</th>
                 <th>E-mail</th>
@@ -26,6 +33,7 @@
         <tbody>
             <?php foreach ($select->fetchAll() as $pessoa): ?>
                 <tr>
+                    <td><?= $pessoa->id; ?></td>
                     <td><?= $pessoa->nome; ?></td>
                     <td><?= $pessoa->cpf; ?></td>
                     <td><?= $pessoa->email; ?></td>
@@ -37,5 +45,13 @@
         </tbody>
     </table>
 </div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+        <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
+    </ul>
+</nav>
 
 <?php include_once 'layout/footer.php'; ?>
