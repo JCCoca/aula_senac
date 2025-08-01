@@ -1,6 +1,6 @@
 <?php 
 
-require_once 'connection.php';
+require_once '../database/connection.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nome = $_POST['nome'] ?? null;
@@ -50,14 +50,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             // Verifica se o cadastro foi realizado com sucesso
             if ($connection->lastInsertId() > 0) {
-                header('Location: form.php?success='.urlencode('Cadastro realizado com sucesso!'));
+                header('Location: ../add.php?success='.urlencode('Cadastro realizado com sucesso!'));
             } else {
-                header('Location: form.php?error='.urlencode('Ocorreu um erro ao tentar realizar o cadastro!'));
+                header('Location: ../add.php?error='.urlencode('Ocorreu um erro ao tentar realizar o cadastro!'));
             }
         } catch (PDOException $e) {
-            header('Location: form.php?error='.urlencode('Ocorreu um erro ao tentar realizar o cadastro!'));
+            header('Location: ../add.php?error='.urlencode('Ocorreu um erro ao tentar realizar o cadastro!'));
         }
     } else {
-        header('Location: form.php?error='.urlencode('Preencha todos os campos obrigatórios!'));
+        header('Location: ../add.php?error='.urlencode('Preencha todos os campos obrigatórios!'));
     }
 }
