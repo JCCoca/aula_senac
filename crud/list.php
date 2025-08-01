@@ -4,9 +4,9 @@
     
     require_once 'database/connection.php';
 
-    $lenghtPage = 10;
+    $lenghtPage = 15;
     $page = (int) isset($_GET['page']) ? $_GET['page'] : 1;
-    $offset = $page * $lenghtPage;
+    $offset = ($page - 1) * $lenghtPage;
 
     $select = $connection->prepare('SELECT * FROM pessoa LIMIT :lenght OFFSET :offset');
     $select->bindValue(':lenght', $lenghtPage, PDO::PARAM_INT);
