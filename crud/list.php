@@ -5,7 +5,7 @@
     require_once 'database/connection.php';
 
     $lenghtPage = 15;
-    $page = (int) isset($_GET['page']) ? $_GET['page'] : 1;
+    $page = (int) (isset($_GET['page']) and $_GET['page'] > 1) ? $_GET['page'] : 1;
     $offset = ($page - 1) * $lenghtPage;
 
     $select = $connection->prepare('SELECT * FROM pessoa LIMIT :lenght OFFSET :offset');
