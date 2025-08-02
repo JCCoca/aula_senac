@@ -49,24 +49,41 @@
     </table>
 </div>
 
-<nav aria-label="Page navigation example">
-    <ul class="pagination">
-        <?php if ($page > 1): ?>
-            <li class="page-item"><a class="page-link" href="<?= '?page='.$page-1 ?>">Anterior</a></li>
-        <?php endif ?>
-
-        <?php for ($i=1; $i <= $totalPages; $i++): ?>
-            <?php if ($page == $i): ?>
-                <li class="page-item active"><span class="page-link"><?= $i ?></span></li>
-            <?php else: ?>
-                <li class="page-item"><a class="page-link" href="<?= '?page='.$i ?>"><?= $i ?></a></li>
+<div class="row align-items-center justify-content-between">
+    <div class="col-md-6">
+        <p class="mb-0">Mostrando <?= $offset+1 ?> a <?= $page*$lenghtPage ?> de <?= $total ?> registros</p>
+    </div>
+    <div class="col-md-6">
+        <ul class="pagination justify-content-end">
+            <?php if ($page > 1): ?>
+                <li class="page-item"><a class="page-link" href="<?= '?page='.$page-1 ?>">Anterior</a></li>
             <?php endif ?>
-        <?php endfor ?>
-        
-        <?php if ($page < $totalPages): ?>
-            <li class="page-item"><a class="page-link" href="<?= '?page='.$page+1 ?>">Próximo</a></li>
-        <?php endif ?>
-    </ul>
-</nav>
+
+            <?php for ($i=1; $i <= $totalPages; $i++): ?>
+                <?php if ($page == $i): ?>
+                    <li class="page-item active"><span class="page-link"><?= $i ?></span></li>
+                <?php else: ?>
+                    <?php if ($i == $page+1 or $i == $page+2 or $i == $page-1 or $i == $page-2): ?>
+                        <li class="page-item"><a class="page-link" href="<?= '?page='.$i ?>"><?= $i ?></a></li>
+                    <?php elseif ($i == 1): ?>
+                        <li class="page-item"><a class="page-link" href="<?= '?page='.$i ?>"><?= $i ?></a></li>
+                        <?php if ($page-3 > 1): ?>
+                            <li class="page-item"><span class="page-link">...</span></li>
+                        <?php endif ?>
+                    <?php elseif ($i == $totalPages): ?>
+                        <?php if ($page+3 < $totalPages): ?>
+                            <li class="page-item"><span class="page-link">...</span></li>
+                        <?php endif ?>
+                        <li class="page-item"><a class="page-link" href="<?= '?page='.$i ?>"><?= $i ?></a></li>
+                    <?php endif ?>
+                <?php endif ?>
+            <?php endfor ?>
+            
+            <?php if ($page < $totalPages): ?>
+                <li class="page-item"><a class="page-link" href="<?= '?page='.$page+1 ?>">Próximo</a></li>
+            <?php endif ?>
+        </ul>
+    </div>
+</div>
 
 <?php include_once 'layout/footer.php'; ?>
