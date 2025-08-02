@@ -13,6 +13,9 @@
     $select->bindValue(':offset', $offset, PDO::PARAM_INT);
     $select->execute();
 
+    $total = (int) $connection->query('SELECT COUNT(*) AS total FROM pessoa')->fetch()->total;
+    $totalPages = ceil($total / $lenghtPage);
+
 ?>
 
 <h1 class="mb-4">Listagem</h1>
@@ -48,9 +51,21 @@
 
 <nav aria-label="Page navigation example">
     <ul class="pagination">
-        <li class="page-item"><a class="page-link" href="#">Anterior</a></li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">Próximo</a></li>
+        <?php if ($page > 1): ?>
+            <li class="page-item"><a class="page-link" href="<?= '?page='.$page-1 ?>">Anterior</a></li>
+        <?php endif ?>
+
+        <?php for ($i=1; $i <= $totalPages; $i++): ?>
+            <?php if ($page == $i): ?>
+                <li class="page-item active"><span class="page-link"><?= $i ?></span></li>
+            <?php else: ?>
+                <li class="page-item"><a class="page-link" href="<?= '?page='.$i ?>"><?= $i ?></a></li>
+            <?php endif ?>
+        <?php endfor ?>
+        
+        <?php if ($page < $totalPages): ?>
+            <li class="page-item"><a class="page-link" href="<?= '?page='.$page+1 ?>">Próximo</a></li>
+        <?php endif ?>
     </ul>
 </nav>
 
