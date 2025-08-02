@@ -4,21 +4,63 @@
     
     require_once 'database/connection.php';
 
+    $search = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : '';
+
     $lenghtPage = 15;
     $page = (int) (isset($_GET['page']) and $_GET['page'] > 1) ? $_GET['page'] : 1;
     $offset = ($page - 1) * $lenghtPage;
 
-    $select = $connection->prepare('SELECT * FROM pessoa LIMIT :lenght OFFSET :offset');
+    $select = $connection->prepare('
+        SELECT * FROM pessoa 
+        WHERE 
+            nome LIKE :search 
+            OR cpf LIKE :search
+            OR email LIKE :search
+            OR telefone LIKE :search
+            OR sexo LIKE :search
+            OR data_nascimento LIKE :search
+        LIMIT 
+            :lenght OFFSET :offset
+    ');
+    $select->bindValue(':search', '%'.$search.'%', PDO::PARAM_STR);
     $select->bindValue(':lenght', $lenghtPage, PDO::PARAM_INT);
     $select->bindValue(':offset', $offset, PDO::PARAM_INT);
     $select->execute();
 
-    $total = (int) $connection->query('SELECT COUNT(*) AS total FROM pessoa')->fetch()->total;
+    $pagination = $connection->prepare('
+        SELECT 
+            COUNT(*) AS total 
+        FROM pessoa 
+        WHERE 
+            nome LIKE :search 
+            OR cpf LIKE :search
+            OR email LIKE :search
+            OR telefone LIKE :search
+            OR sexo LIKE :search
+            OR data_nascimento LIKE :search
+    ');
+    $pagination->bindValue(':search', '%'.$search.'%', PDO::PARAM_STR);
+    $pagination->execute();
+
+    $total = $pagination->fetch()->total;
     $totalPages = ceil($total / $lenghtPage);
 
 ?>
 
 <h1 class="mb-4">Listagem</h1>
+
+<form action="">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="input-group mb-3">
+                <input type="text" name="pesquisa" id="pesquisa" class="form-control" value="<?= $_GET['pesquisa'] ?? '' ?>">
+                <button type="submit" class="btn btn-primary">
+                    <i class="ph ph-magnifying-glass"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
 
 <div class="table-responsive">
     <table class="table table-sm table-striped table-hover align-middle">

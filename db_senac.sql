@@ -177,9 +177,7 @@ WHERE
     pessoa.sexo = 'masculino'
 ORDER BY
     pessoa.id ASC;
-
-*/
-
+    
 CREATE DATABASE senac;
 USE senac;
 
@@ -194,5 +192,11 @@ CREATE TABLE pessoa (
 	data_nascimento DATE NOT NULL
 );
 
+*/
+
+
+SELECT * FROM pessoa 
+WHERE 
+    nome LIKE 'Carla%Almeida'
 
 
