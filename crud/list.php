@@ -5,8 +5,9 @@
     require_once 'database/connection.php';
 
     $search = isset($_GET['pesquisa']) ? $_GET['pesquisa'] : '';
+    $params = 'pesquisa='.urlencode($search).'&';
 
-    $lenghtPage = 15;
+    $lenghtPage = 10;
     $page = (int) (isset($_GET['page']) and $_GET['page'] > 1) ? $_GET['page'] : 1;
     $offset = ($page - 1) * $lenghtPage;
 
@@ -47,7 +48,7 @@
 
 ?>
 
-<h1 class="mb-4">Listagem</h1>
+<h1 class="mb-4">Listar Pessoas</h1>
 
 <form action="">
     <div class="row">
@@ -73,6 +74,7 @@
                 <th>Telefone</th>
                 <th>Sexo</th>
                 <th>Data Nascimento</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -84,7 +86,15 @@
                     <td><?= $pessoa->email; ?></td>
                     <td><?= $pessoa->telefone; ?></td>
                     <td><?= $pessoa->sexo; ?></td>
-                    <td><?= $pessoa->data_nascimento; ?></td>
+                    <td><?= date('d/m/Y', strtotime($pessoa->data_nascimento)); ?></td>
+                    <td>
+                        <a href="<?= 'edit.php?id='.$pessoa->id ?>" class="btn btn-sm btn-outline-primary">
+                            <i class="ph ph-pencil"></i> Editar
+                        </a>
+                        <button type="button" class="btn btn-sm btn-outline-danger">
+                            <i class="ph ph-trash"></i> Excluir
+                        </button>
+                    </td>
                 </tr>
             <?php endforeach ?>
         </tbody>
@@ -93,12 +103,12 @@
 
 <div class="row align-items-center justify-content-between">
     <div class="col-md-6">
-        <p class="mb-0">Mostrando <?= $offset+1 ?> a <?= $page*$lenghtPage ?> de <?= $total ?> registros</p>
+        <p class="mb-0">Mostrando de <?= $offset+1 ?> a <?= $page*$lenghtPage < $total ? $page*$lenghtPage : $total ?> de <?= $total ?> registros</p>
     </div>
     <div class="col-md-6">
         <ul class="pagination justify-content-end">
             <?php if ($page > 1): ?>
-                <li class="page-item"><a class="page-link" href="<?= '?page='.$page-1 ?>">Anterior</a></li>
+                <li class="page-item"><a class="page-link" href="<?= '?'.$params.'page='.$page-1 ?>">Anterior</a></li>
             <?php endif ?>
 
             <?php for ($i=1; $i <= $totalPages; $i++): ?>
@@ -106,9 +116,9 @@
                     <li class="page-item active"><span class="page-link"><?= $i ?></span></li>
                 <?php else: ?>
                     <?php if ($i == $page+1 or $i == $page+2 or $i == $page-1 or $i == $page-2): ?>
-                        <li class="page-item"><a class="page-link" href="<?= '?page='.$i ?>"><?= $i ?></a></li>
+                        <li class="page-item"><a class="page-link" href="<?= '?'.$params.'page='.$i ?>"><?= $i ?></a></li>
                     <?php elseif ($i == 1): ?>
-                        <li class="page-item"><a class="page-link" href="<?= '?page='.$i ?>"><?= $i ?></a></li>
+                        <li class="page-item"><a class="page-link" href="<?= '?'.$params.'page='.$i ?>"><?= $i ?></a></li>
                         <?php if ($page-3 > 1): ?>
                             <li class="page-item"><span class="page-link">...</span></li>
                         <?php endif ?>
@@ -116,13 +126,13 @@
                         <?php if ($page+3 < $totalPages): ?>
                             <li class="page-item"><span class="page-link">...</span></li>
                         <?php endif ?>
-                        <li class="page-item"><a class="page-link" href="<?= '?page='.$i ?>"><?= $i ?></a></li>
+                        <li class="page-item"><a class="page-link" href="<?= '?'.$params.'page='.$i ?>"><?= $i ?></a></li>
                     <?php endif ?>
                 <?php endif ?>
             <?php endfor ?>
             
             <?php if ($page < $totalPages): ?>
-                <li class="page-item"><a class="page-link" href="<?= '?page='.$page+1 ?>">Próximo</a></li>
+                <li class="page-item"><a class="page-link" href="<?= '?'.$params.'page='.$page+1 ?>">Próximo</a></li>
             <?php endif ?>
         </ul>
     </div>
