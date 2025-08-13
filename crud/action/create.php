@@ -22,10 +22,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ) {
         try {
             // Verifica se o e-mail já está cadastrado
-            $consulta = $connection->query("SELECT * FROM pessoa WHERE email = '{$email}'");
+            $consulta = $connection->query("SELECT * FROM pessoa WHERE email = :email");
+            $consulta->bindValue(':email', $email);
+            $consulta->execute();
 
             if ($consulta->rowCount() > 0) {
-                header('Location: form.php?error='.urlencode('Este e-mail já foi cadastrado!'));
+                header('Location: ../add.php?error='.urlencode('Este e-mail já foi cadastrado!'));
+                exit;
+            }
+
+            // Verifica se o cpf já está cadastrado
+            $consulta = $connection->query("SELECT * FROM pessoa WHERE cpf = :cpf");
+            $consulta->bindValue(':cpf', $cpf);
+            $consulta->execute();
+
+            if ($consulta->rowCount() > 0) {
+                header('Location: ../add.php?error='.urlencode('Este CPF já foi cadastrado!'));
                 exit;
             }
 

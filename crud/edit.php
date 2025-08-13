@@ -90,6 +90,8 @@
         </div>
     </div>
 
+    <input type="hidden" name="id" value="<?= $pessoa->id ?>">
+
     <button type="submit" class="btn btn-primary">
         <i class="ph ph-floppy-disk-back"></i> Salvar
     </button>

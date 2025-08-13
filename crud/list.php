@@ -50,6 +50,18 @@
 
 <h1 class="mb-4">Listar Pessoas</h1>
 
+<?php if (isset($_GET['success'])): ?>
+    <div class="alert alert-success">
+        <?= $_GET['success']; ?>
+    </div>
+<?php endif ?>
+
+<?php if (isset($_GET['error'])): ?>
+    <div class="alert alert-danger">
+        <?= $_GET['error']; ?>
+    </div>
+<?php endif ?>
+
 <form action="">
     <div class="row">
         <div class="col-md-6">
@@ -91,7 +103,13 @@
                         <a href="<?= 'edit.php?id='.$pessoa->id ?>" class="btn btn-sm btn-outline-primary">
                             <i class="ph ph-pencil"></i> Editar
                         </a>
-                        <button type="button" class="btn btn-sm btn-outline-danger">
+                        <button 
+                            type="button" 
+                            class="btn btn-sm btn-outline-danger" 
+                            onclick="document.getElementById('delete-id').value = '<?= $pessoa->id ?>'"
+                            data-bs-toggle="modal" 
+                            data-bs-target="#modal-delete"
+                        >
                             <i class="ph ph-trash"></i> Excluir
                         </button>
                     </td>
@@ -135,6 +153,30 @@
                 <li class="page-item"><a class="page-link" href="<?= '?'.$params.'page='.$page+1 ?>">Próximo</a></li>
             <?php endif ?>
         </ul>
+    </div>
+</div>
+
+<div class="modal fade" id="modal-delete" tabindex="-1" aria-labelledby="modal-delete-header" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-delete-header">Aviso</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form action="action/delete.php" method="POST">
+                <div class="modal-body">
+                    <p class="mb-0">
+                        Deseja realmente <strong class="text-danger">EXCLUIR</strong> este registro? <br>
+                        Esta ação não poderá ser desfeita!
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="id" id="delete-id">
+                    <button type="submit" class="btn btn-danger">Excluir</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
