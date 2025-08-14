@@ -22,8 +22,9 @@
 <h2 class="mb-4">Editar Pessoa</h2>
 
 <?php if (isset($_GET['success'])): ?>
-    <div class="alert alert-success">
+    <div class="alert alert-success alert-dismissible fade show">
         <?= $_GET['success']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <script>
         let url = new URL(window.location.href);
@@ -33,8 +34,9 @@
 <?php endif ?>
 
 <?php if (isset($_GET['error'])): ?>
-    <div class="alert alert-danger">
+    <div class="alert alert-danger alert-dismissible fade show">
         <?= $_GET['error']; ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
     <script>
         let url = new URL(window.location.href);
