@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.2"></script>
 </head>
-<body>
+<body class="bg-body-tertiary">
     <nav class="navbar bg-dark border-bottom border-body navbar-expand-lg" data-bs-theme="dark">
         <div class="container">
             <a class="navbar-brand" href="#">CRUD</a>
