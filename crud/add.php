@@ -6,12 +6,22 @@
     <div class="alert alert-success">
         <?= $_GET['success']; ?>
     </div>
+    <script>
+        let url = new URL(window.location.href);
+        url.searchParams.delete('success');
+        window.history.pushState({}, '', url.toString());
+    </script>
 <?php endif ?>
 
 <?php if (isset($_GET['error'])): ?>
     <div class="alert alert-danger">
         <?= $_GET['error']; ?>
     </div>
+    <script>
+        let url = new URL(window.location.href);
+        url.searchParams.delete('error');
+        window.history.pushState({}, '', url.toString());
+    </script>
 <?php endif ?>
 
 <div class="card card-body">
